@@ -9,9 +9,9 @@ import os
 from chatbot import search_query
 
 
-# -------------------------------
+
 # FastAPI App
-# -------------------------------
+
 
 app = FastAPI(
     title="University Helpdesk Chatbot API",
@@ -19,9 +19,8 @@ app = FastAPI(
 )
 
 
-# -------------------------------
+
 # Enable CORS
-# -------------------------------
 
 app.add_middleware(
     CORSMiddleware,
@@ -32,9 +31,9 @@ app.add_middleware(
 )
 
 
-# -------------------------------
+
 # Upload Folder
-# -------------------------------
+
 
 UPLOAD_FOLDER = "uploads"
 
@@ -42,7 +41,7 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 
-# -------------------------------
+
 # Load CSV Knowledge Base
 # -------------------------------
 
