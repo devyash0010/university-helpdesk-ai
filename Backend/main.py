@@ -60,9 +60,9 @@ class IssueRequest(BaseModel):
     issue: str
 
 
-# -------------------------------
+
 # Health Check
-# -------------------------------
+
 
 @app.get("/")
 def home():
@@ -73,9 +73,9 @@ def home():
     }
 
 
-# -------------------------------
+
 # Categories API (Quick Help)
-# -------------------------------
+
 
 @app.get("/categories")
 def get_categories():
@@ -94,9 +94,9 @@ def get_categories():
     return data
 
 
-# -------------------------------
+
 # Chat API
-# -------------------------------
+
 
 @app.post("/chat")
 def chat(req: ChatRequest):
@@ -116,9 +116,9 @@ def chat(req: ChatRequest):
         }
 
 
-# -------------------------------
+
 # Issue Response API
-# -------------------------------
+
 
 @app.post("/issue-response")
 def issue_response(req: IssueRequest):

@@ -34,7 +34,7 @@ This is currently a Proof of Concept (POC) demonstrating how to combine **RAG-ba
 Bash
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/university-helpdesk-ai.git
+git clone https://github.com/devyash0010/university-helpdesk-ai.git
 cd university-helpdesk-ai
 ```
 

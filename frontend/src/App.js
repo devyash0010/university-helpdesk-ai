@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import IconButton from "@mui/material/IconButton";
 import Refresh from "@mui/icons-material/Refresh";
+
 function App() {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -91,9 +92,9 @@ function App() {
 
   }, []);
 
-  // -----------------------------
+
   // WebSocket connect
-  // -----------------------------
+ 
 
   useEffect(() => {
 
