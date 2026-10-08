@@ -69,12 +69,20 @@ embeddings = HuggingFaceEmbeddings(
 # Vector Database
 # -----------------------------
 
-if os.path.exists(VECTOR_DB_PATH):
+# Reuse the persisted DB when it exists and contains data;
+# otherwise (first run / fresh clone / empty dir) build it from the CSV.
+
+db_path_exists = os.path.exists(os.path.join(VECTOR_DB_PATH, "chroma.sqlite3"))
+
+if db_path_exists:
 
     vector_db = Chroma(
         persist_directory=VECTOR_DB_PATH,
         embedding_function=embeddings
     )
+
+    if len(vector_db.get()["ids"]) == 0:
+        vector_db.add_documents(docs)
 
 else:
 

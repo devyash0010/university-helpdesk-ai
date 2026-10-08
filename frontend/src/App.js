@@ -3,6 +3,10 @@ import "./App.css";
 import IconButton from "@mui/material/IconButton";
 import Refresh from "@mui/icons-material/Refresh";
 
+// Backend API base URL — override with REACT_APP_API_URL / REACT_APP_WS_URL at build time.
+const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
+const WS_URL = process.env.REACT_APP_WS_URL || "ws://127.0.0.1:8000";
+
 function App() {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -85,7 +89,7 @@ function App() {
 
   useEffect(() => {
 
-    fetch("http://127.0.0.1:8000/categories")
+    fetch(`${API_URL}/categories`)
       .then(res => res.json())
       .then(data => setCategories(data))
       .catch(() => console.log("Category load failed"));
@@ -98,7 +102,7 @@ function App() {
 
   useEffect(() => {
 
-    socketRef.current = new WebSocket("ws://127.0.0.1:8000/ws/chat");
+    socketRef.current = new WebSocket(`${WS_URL}/ws/chat`);
 
     socketRef.current.onmessage = (event) => {
 
@@ -163,7 +167,7 @@ function App() {
 
       setTyping(true);
 
-      const response = await fetch("http://127.0.0.1:8000/issue-response", {
+      const response = await fetch(`${API_URL}/issue-response`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -223,7 +227,7 @@ function App() {
 
       setTyping(true);
 
-      const response = await fetch("http://127.0.0.1:8000/issue-response", {
+      const response = await fetch(`${API_URL}/issue-response`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -296,16 +300,22 @@ function App() {
 
     try {
 
-      const response = await fetch("http://127.0.0.1:8000/create-ticket", {
+      const response = await fetch(`${API_URL}/create-ticket`, {
         method: "POST",
         body: formData
       });
 
       const data = await response.json();
 
+      if (!data.success) {
+        throw new Error(data.error || "Ticket creation failed");
+      }
+
+      const ticketId = (data.ticket && data.ticket.ticket_id) || data.ticket_id || "UNKNOWN";
+
       setChat(prev => [
         ...prev,
-        { sender: "bot", text: "🎫 Ticket Created: " + data.ticket_id }
+        { sender: "bot", text: "🎫 Ticket Created: " + ticketId }
       ]);
 
       setShowTicket(false);

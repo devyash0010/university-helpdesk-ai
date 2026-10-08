@@ -5,6 +5,7 @@ from pydantic import BaseModel
 import pandas as pd
 import json
 import os
+import uuid
 
 from chatbot import search_query
 
@@ -33,9 +34,11 @@ app.add_middleware(
 
 
 # Upload Folder
+# -------------------------------
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-UPLOAD_FOLDER = "uploads"
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
@@ -45,7 +48,7 @@ if not os.path.exists(UPLOAD_FOLDER):
 # Load CSV Knowledge Base
 # -------------------------------
 
-df = pd.read_csv("alu_query_categories.csv")
+df = pd.read_csv(os.path.join(BASE_DIR, "alu_query_categories.csv"))
 
 
 # -------------------------------
@@ -170,7 +173,7 @@ async def create_ticket(
                 f.write(await file.read())
 
         ticket = {
-            "ticket_id": "TICK1021",
+            "ticket_id": "TICK-" + str(uuid.uuid4())[:6],
             "status": "open",
             "description": description,
             "attachment": file_name

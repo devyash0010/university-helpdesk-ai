@@ -45,7 +45,7 @@ Open a terminal and navigate to the backend folder:
 Bash
 
 ```bash
-cd backend
+cd Backend
 ```
 
 Create and activate a virtual environment:
@@ -62,17 +62,23 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-Install dependencies and start the server:
+Install dependencies (from the repository root) and start the server:
 
 Bash
 
 ```bash
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 uvicorn app:app --reload
 ```
 
-*The API will run at* `http://localhost:8000`.
+*The API will run at* `http://localhost:8000` (use `--port 8010` if port 8000 is already in use).
 *You can view the API documentation at* `http://localhost:8000/docs`.
+
+To run the automated backend API tests (with the server running):
+
+```bash
+python test_api.py
+```
 
 ### 3. Frontend Setup
 
@@ -90,7 +96,7 @@ Bash
 
 ```bash
 npm install
-npm run dev
+npm start
 ```
 
 ## Project Structure
@@ -99,16 +105,18 @@ Plaintext
 
 ```text
 university-helpdesk-ai/
-├── backend/
+├── Backend/
 │   ├── app.py                 # FastAPI server and WebSocket routes
-│   ├── requirements.txt
-│   ├── data/
-│   │   └── sample_query_categories.csv  # Sample knowledge base
+│   ├── main.py                # Alternate entrypoint (persistent vector DB)
+│   ├── chatbot.py             # RAG search module (CSV → ChromaDB)
+│   ├── test_api.py            # Automated end-to-end API tests
+│   ├── alu_query_categories.csv  # Sample knowledge base
 │   └── uploads/               # Ticket attachments
 ├── frontend/
 │   ├── src/
 │   ├── public/
 │   └── package.json
+├── requirements.txt
 ├── README.md
 └── .gitignore
 ```

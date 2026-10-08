@@ -31,10 +31,12 @@ app.add_middleware(
 
 
 # ----------------------------------
-# Upload Folder
+# Upload Folder & Knowledge Base
 # ----------------------------------
 
-UPLOAD_FOLDER = "uploads"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
@@ -44,7 +46,7 @@ if not os.path.exists(UPLOAD_FOLDER):
 # Load CSV Knowledge Base
 # ----------------------------------
 
-df = pd.read_csv("alu_query_categories.csv")
+df = pd.read_csv(os.path.join(BASE_DIR, "alu_query_categories.csv"))
 
 
 # ----------------------------------
