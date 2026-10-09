@@ -6,3 +6,6 @@ langchain-community
 langchain-core
 chromadb
 sentence-transformers
+requests
+websockets
+pillow

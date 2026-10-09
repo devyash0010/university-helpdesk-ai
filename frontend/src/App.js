@@ -4,8 +4,8 @@ import IconButton from "@mui/material/IconButton";
 import Refresh from "@mui/icons-material/Refresh";
 
 // Backend API base URL — override with REACT_APP_API_URL / REACT_APP_WS_URL at build time.
-const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
-const WS_URL = process.env.REACT_APP_WS_URL || "ws://127.0.0.1:8000";
+const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8010";
+const WS_URL = process.env.REACT_APP_WS_URL || "ws://127.0.0.1:8010";
 
 function App() {
 
